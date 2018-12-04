@@ -1,5 +1,6 @@
 package sample;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -62,6 +63,7 @@ public class WorkoutSelect implements Initializable {
     void ExerciseAdd(ActionEvent event) {
 
             WorkoutArray.add(choice);
+
     }
 
     @FXML
@@ -71,14 +73,15 @@ public class WorkoutSelect implements Initializable {
         if (CurrentText.equals("Start") == false) {
             // all workouts performed by the user in the current run will be stored and sent elsewhere
             WorkoutArrayToUserData.addAll(WorkoutArray);
-            WorkoutText.setText("Workout Complete\n\n");
+            workoutText.setText("Workout Complete\n\n");
             for (String exercise : WorkoutArray) {
-                WorkoutText.setText(WorkoutText.getText() + " " + exercise + "\n");
+                workoutText.setText(workoutText.getText() + " " + exercise + "\n");
+
 
             }
             StartButton.setText("Start");
         } else {
-            WorkoutText.setText("Workout in progress");
+            workoutText.setText("Workout in progress");
             StartButton.setText("Stop");
         }
 
@@ -176,6 +179,7 @@ public class WorkoutSelect implements Initializable {
 
         // loads the list view options on screen start-up
         loadLeftsideListview();
+
 
     }
 }
