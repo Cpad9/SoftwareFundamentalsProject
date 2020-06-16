@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextArea;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,25 +43,37 @@ public class WorkoutSelect implements Initializable {
     private Button AddButton;
 
     @FXML
+    private Button ClearButton;
+
+    @FXML
     private Button returnToFithub;
 
     @FXML
     private Button StartButton;
 
     @FXML
-    private Label WorkoutLabel;
+    private TextArea workoutText;
+
+    static public String returnvalue;
 
 
     static ArrayList<String> WorkoutArray = new ArrayList<String>();
     ArrayList<String> WorkoutArrayToUserData = new ArrayList<String>();
     String choice;
+    int counter = 0;
 
 
     @FXML
         //adds selected workouts to Arraylist
     void ExerciseAdd(ActionEvent event) {
-
             WorkoutArray.add(choice);
+            returnvalue = choice;
+            if (WorkoutArray.get(counter)==null){
+            }else {
+                workoutText.appendText(WorkoutArray.get(counter) + "\n");
+            }
+            counter++;
+
     }
 
     @FXML
@@ -69,25 +82,41 @@ public class WorkoutSelect implements Initializable {
         String CurrentText = StartButton.getText();
         if (CurrentText.equals("Start") == false) {
             // all workouts performed by the user in the current run will be stored and sent elsewhere
-            WorkoutArrayToUserData.addAll(WorkoutArray);
-            WorkoutLabel.setText("Workout Complete\n\n");
+            workoutText.setText("Workout Complete\n\n");
             for (String exercise : WorkoutArray) {
-                WorkoutLabel.setText(WorkoutLabel.getText() + " " + exercise + "\n");
+                    if (exercise == null){
 
+                    }else{
+                    workoutText.setText(workoutText.getText() + " " + exercise + "\n");
+                    }
             }
             StartButton.setText("Start");
         } else {
-            WorkoutLabel.setText("Workout in progress");
+            workoutText.setText("Workout in progress\n\n");
+            for (String exercise : WorkoutArray) {
+                if (exercise == null){
+
+                }else{
+                    workoutText.setText(workoutText.getText() + " " + exercise + "\n");
+                }
+            }
             StartButton.setText("Stop");
         }
-
     }
 
     @FXML
+    //ExerciseClear Button
+    void ExerciseClear(ActionEvent event){
+        workoutText.clear();
+        WorkoutArray.clear();
+        counter = 0;
+    }
+    @FXML
     private void handleWorkButtonAction(ActionEvent event) throws IOException {
-
+        //returnToFitHub Button Clicked
         if (event.getSource() == returnToFithub) {
 
+            workoutText.clear();
             leadWorkoutPane.getChildren().setAll((Node) FXMLLoader.load(getClass().getResource("MainMenu.fxml")));
 
         }
@@ -97,7 +126,7 @@ public class WorkoutSelect implements Initializable {
     public void SetExersizes(String workout) {
         workoutSpecs.clear();
         workoutSpecListview.getItems().clear();
-
+    
         if (workout == "Cardio") {
             workoutSpecs.addAll("Jogging", "Sprints", "Jumping Jacks", "Biking", "Swimming", "Jump Rope",
                     "Stair Climbing", "Pick-up Basketball", "Rowing", "Boxing", "Burpees");
@@ -172,7 +201,7 @@ public class WorkoutSelect implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        WorkoutArray.clear();
         // loads the list view options on screen start-up
         loadLeftsideListview();
 

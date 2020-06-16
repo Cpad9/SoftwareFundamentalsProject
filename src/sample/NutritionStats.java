@@ -1,7 +1,7 @@
 package sample;
 
-import static sample.WorkoutSelect.WorkoutArray;
 import static sample.Login.user;
+import static sample.WorkoutSelect.returnvalue;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,7 +24,6 @@ import java.util.ResourceBundle;
 
 public class NutritionStats extends User implements Initializable {
 
-    testNutritionStatsDriver thisRun = new testNutritionStatsDriver();
 
     /***************************************************************
      /* NUTRITION STATISTICS DISPLAY FXML
@@ -114,7 +113,7 @@ public class NutritionStats extends User implements Initializable {
         populateLineGraph();
         populateBarGraph();
         try{
-        lastWorkoutVal.setText( WorkoutArray.get(0));
+        lastWorkoutVal.setText(returnvalue);
         }
         catch(Exception ex){
 
